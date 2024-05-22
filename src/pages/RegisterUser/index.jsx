@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { LinearGradient } from "react-text-gradients";
+
 import { Col, Input, Row, Button, notification, Form } from "antd";
 import { Get } from "../../utils/requestFirebase";
 import { useNavigate } from "react-router-dom";
@@ -87,103 +89,111 @@ export const RegisterUser = () => {
       <Context.Provider value={contextValue}>
         {contextHolder}
         <div className="container">
-          <Form form={form} onFinish={handleFinish} autoComplete="false ">
-            <div className="box_head">
-              <div className="title">Trang đăng ký</div>
-              <div className="subtitle"> Trang đăng ký dành cho ứng viên</div>
-            </div>
-            <Row gutter={[10, 10]}>
-              <Col xxl={24} xl={24} lg={12} md={12} sm={24} xs={24}>
-                <Title level={5} style={{ marginTop: 0 }}>
-                  Email
-                </Title>
-                <Form.Item
-                  name="email"
-                  rules={[
-                    { required: true, message: "Please input your email" },
-                  ]}
-                >
-                  <Input placeholder="Enter your email" />
-                </Form.Item>
-              </Col>
-              <Col xxl={24} xl={24} lg={12} md={12} sm={24} xs={24}>
-                <Title level={5} style={{ marginTop: 0 }}>
-                  Họ và tên
-                </Title>
-                <Form.Item
-                  name="name"
-                  rules={[
-                    { required: true, message: "Please input your name" },
-                  ]}
-                >
-                  <Input placeholder="Enter your name" />
-                </Form.Item>
-              </Col>
-              <Col xxl={24} xl={24} lg={12} md={12} sm={24} xs={24}>
-                <Title level={5} style={{ marginTop: 0 }}>
-                  Số điện thoại
-                </Title>
-                <Form.Item
-                  name="phone"
-                  rules={[
-                    { required: true, message: "Please input your email" },
-                  ]}
-                >
-                  <Input placeholder="Enter your phone number" />
-                </Form.Item>
-              </Col>
-              <Col xxl={24} xl={24} lg={12} md={12} sm={24} xs={24}>
-                <Title level={5} style={{ marginTop: 0 }}>
-                  Mật khẩu
-                </Title>
-                <Form.Item
-                  name="password"
-                  rules={[
-                    { required: true, message: "Please input your password" },
-                  ]}
-                >
-                  <Input.Password placeholder="Enter your password" />
-                </Form.Item>
-              </Col>
-            </Row>
-            <Row>
-              <Col xxl={24} xl={24} lg={12} md={12} sm={24} xs={24}>
-                <Title level={5} style={{ marginTop: 0 }}>
-                  Nhâp lại Mật khẩu
-                </Title>
-                <Form.Item
-                  dependencies={["password"]}
-                  name="password_again"
-                  rules={[
-                    { required: true, message: "Please re-type your password" },
-                    { validator: validatePasswords },
-                  ]}
-                >
-                  <Input.Password placeholder="Re-type your password" />
-                </Form.Item>
-              </Col>
-            </Row>
-            <Row justify={"end"} gutter={[10, 10]}>
-              <Col xxl={6} xl={6} lg={24} md={12} sm={24} xs={24}>
-                <Form.Item>
-                  <Button style={{ width: "100%" }} htmlType="reset">
-                    Nhập lại
-                  </Button>
-                </Form.Item>
-              </Col>
-              <Col xxl={6} xl={6} lg={24} md={12} sm={24} xs={24}>
-                <Form.Item>
-                  <Button
-                    style={{ width: "100%" }}
-                    type="primary"
-                    htmlType="submit"
+          <div className="innerbox">
+            <Form form={form} onFinish={handleFinish} autoComplete="false ">
+              <div className="box_head">
+                <div className="title">
+                  <LinearGradient gradient={["to left", "#17acff ,#ff68f0"]}>
+                    TRANG ĐĂNG KÝ
+                  </LinearGradient>
+                </div>
+              </div>
+              <Row gutter={[10, 10]}>
+                <Col xxl={24} xl={24} lg={12} md={12} sm={24} xs={24}>
+                  <Title level={5} style={{ marginTop: 0 }}>
+                    Email
+                  </Title>
+                  <Form.Item
+                    name="email"
+                    rules={[
+                      { required: true, message: "Please input your email" },
+                    ]}
                   >
-                    Đăng ký
-                  </Button>
-                </Form.Item>
-              </Col>
-            </Row>
-          </Form>
+                    <Input placeholder="Enter your email" />
+                  </Form.Item>
+                </Col>
+                <Col xxl={24} xl={24} lg={12} md={12} sm={24} xs={24}>
+                  <Title level={5} style={{ marginTop: 0 }}>
+                    Họ và tên
+                  </Title>
+                  <Form.Item
+                    name="name"
+                    rules={[
+                      { required: true, message: "Please input your name" },
+                    ]}
+                  >
+                    <Input placeholder="Enter your name" />
+                  </Form.Item>
+                </Col>
+                <Col xxl={24} xl={24} lg={12} md={12} sm={24} xs={24}>
+                  <Title level={5} style={{ marginTop: 0 }}>
+                    Số điện thoại
+                  </Title>
+                  <Form.Item
+                    name="phone"
+                    rules={[
+                      { required: true, message: "Please input your email" },
+                    ]}
+                  >
+                    <Input placeholder="Enter your phone number" />
+                  </Form.Item>
+                </Col>
+                <Col xxl={24} xl={24} lg={12} md={12} sm={24} xs={24}>
+                  <Title level={5} style={{ marginTop: 0 }}>
+                    Mật khẩu
+                  </Title>
+                  <Form.Item
+                    name="password"
+                    rules={[
+                      { required: true, message: "Please input your password" },
+                    ]}
+                  >
+                    <Input.Password placeholder="Enter your password" />
+                  </Form.Item>
+                </Col>
+              </Row>
+              <Row>
+                <Col xxl={24} xl={24} lg={12} md={12} sm={24} xs={24}>
+                  <Title level={5} style={{ marginTop: 0 }}>
+                    Nhâp lại Mật khẩu
+                  </Title>
+                  <Form.Item
+                    dependencies={["password"]}
+                    name="password_again"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please re-type your password",
+                      },
+                      { validator: validatePasswords },
+                    ]}
+                  >
+                    <Input.Password placeholder="Re-type your password" />
+                  </Form.Item>
+                </Col>
+              </Row>
+              <Row justify={"end"} gutter={[10, 10]}>
+                <Col xxl={6} xl={6} lg={24} md={12} sm={24} xs={24}>
+                  <Form.Item>
+                    <Button style={{ width: "100%" }} htmlType="reset">
+                      Nhập lại
+                    </Button>
+                  </Form.Item>
+                </Col>
+                <Col xxl={6} xl={6} lg={24} md={12} sm={24} xs={24}>
+                  <Form.Item>
+                    <Button
+                      style={{ width: "100%" }}
+                      type="primary"
+                      htmlType="submit"
+                    >
+                      Đăng ký
+                    </Button>
+                  </Form.Item>
+                </Col>
+              </Row>
+            </Form>
+          </div>
         </div>
       </Context.Provider>
     </>

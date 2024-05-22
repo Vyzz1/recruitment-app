@@ -1,9 +1,11 @@
-import { Col, Input, Row, Button, notification, Form } from "antd";
+import { notification } from "antd";
 import React, { useEffect, useState } from "react";
 import "./Login.css";
 import { Get } from "../../utils/requestFirebase";
 import { setCookie } from "../../SetCookie";
 import { useNavigate } from "react-router-dom";
+import image from "./image.jpg";
+import { Typewriter } from "react-simple-typewriter";
 function Login() {
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -29,8 +31,9 @@ function Login() {
   };
 
   const handleSubmit = (e) => {
-    let email = e.email;
-    let password = e.password;
+    e.preventDefault();
+    let email = e.target[0].value;
+    let password = e.target[1].value;
     const user = data.filter(
       (user) => user.email === email && user.password === password
     );
@@ -70,57 +73,67 @@ function Login() {
     <>
       <Context.Provider value={contextValue}>
         {contextHolder}
-        <div className="container">
-          <Form onFinish={handleSubmit} autoComplete="false">
-            <div className="box_head">
-              <div className="title">Login</div>
-              <div className="subtitle">
-                {" "}
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.{" "}
+        <form onSubmit={handleSubmit}>
+          <div class="flex items-center justify-center min-h-screen bg-gray-100">
+            <div class="relative flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
+              <div class="flex flex-col justify-center p-8 md:p-14">
+                <h1 className="text-5xl font-semibold">
+                  <Typewriter cursor words={["Đăng nhập", "Chào mừng "]} />
+                </h1>
+                <span class="font-light text-gray-400 mb-8">
+                  Chào mừng nhà tuyển dụng
+                </span>
+                <div class="py-4">
+                  <span class="mb-2 text-md">Email</span>
+                  <input
+                    type="text"
+                    class="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
+                    name="email"
+                    id="email"
+                  />
+                </div>
+                <div class="py-4">
+                  <span class="mb-2 text-md">Password</span>
+                  <input
+                    type="password"
+                    name="password"
+                    id="pass"
+                    class="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
+                  />
+                </div>
+                <div class="flex justify-between w-full py-4">
+                  <div class="mr-24">
+                    <input type="checkbox" name="ch" id="ch" class="mr-2" />
+                    <span class="text-md cursor-pointer">
+                      Remember for 30 days
+                    </span>
+                  </div>
+                  <span class="font-bold text-md cursor-pointer">
+                    Quên mật khẩu
+                  </span>
+                </div>
+                <button className="active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01]  ease-in-out transform py-4 bg-violet-500 rounded-xl text-white font-bold text-lg">
+                  Sign in
+                </button>
+              </div>
+              <div class="relative">
+                <img
+                  src={image}
+                  alt="img"
+                  class="w-[400px] h-full hidden rounded-r-2xl md:block object-cover"
+                />
+                <div class="absolute hidden bottom-10 right-6 p-6 bg-white bg-opacity-30 backdrop-blur-sm rounded drop-shadow-lg md:block">
+                  <span class="text-black text-xl">
+                    We've been uesing Untitle to kick"
+                    <br />
+                    start every new project and can't <br />
+                    imagine working without it."
+                  </span>
+                </div>
               </div>
             </div>
-            <Row gutter={[10, 10]}>
-              <Col xxl={24} xl={24} lg={12} md={12} sm={24} xs={24}>
-                <h3> Email </h3>
-                <Form.Item
-                  name="email"
-                  rules={[
-                    { required: true, message: "Please input your email" },
-                  ]}
-                >
-                  <Input placeholder="Enter your email" />
-                </Form.Item>
-              </Col>
-            </Row>
-            <Row gutter={[10, 10]}>
-              <Col xxl={12} xl={24} lg={12} md={12} sm={24} xs={24}>
-                <h3> PassWord</h3>
-                <Form.Item
-                  name="password"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please input your password!",
-                    },
-                  ]}
-                >
-                  <Input.Password placeholder="Enter your password" />
-                </Form.Item>
-              </Col>
-            </Row>
-            <Col xxl={12} xl={24} lg={12} md={12} sm={24} xs={24}>
-              <Form.Item style={{ marginTop: "40px" }}>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  style={{ width: "100%" }}
-                >
-                  Login
-                </Button>
-              </Form.Item>
-            </Col>
-          </Form>
-        </div>
+          </div>
+        </form>
       </Context.Provider>
     </>
   );

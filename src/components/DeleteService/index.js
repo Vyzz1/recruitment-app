@@ -47,9 +47,9 @@ function DeleteService({ items, type }) {
       if (name === items.name && password === password1) {
         dispatch(Delete(type, items?.id));
         message.success("Xóa thành công");
-        // setTimeout(() => {
-        //   navigate(0);
-        // }, 1300);
+        setTimeout(() => {
+          navigate(0);
+        }, 1300);
       } else {
         message.error("Sai thông tin xác nhận");
       }

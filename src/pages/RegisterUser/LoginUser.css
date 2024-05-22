@@ -1,5 +1,6 @@
 .container{
     display: flex;
+    /* border: 1px solid blue; */
     justify-content: center;
 }
 .box_head{
@@ -15,4 +16,9 @@
 .box_head .subtitle{
     font-weight: 300;
     color: cadetblue;
+}
+.innerbox{
+    border: 1px solid blue;
+    padding: 12px 30px;
+    border-radius: 8px;
 }

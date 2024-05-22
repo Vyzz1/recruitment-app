@@ -14,9 +14,10 @@ import { Get } from "../../utils/requestFirebase";
 import "./Home.scss";
 import { getRandomItemsFromArray } from "../../helpers/helpers";
 import { color } from "../../utils/color";
-import { AiOutlineArrowRight, AiOutlinePlus } from "react-icons/ai";
+import { AiOutlineArrowRight } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import Title from "antd/es/typography/Title";
+import { LinearGradient } from "react-text-gradients";
 
 function Home() {
   const [city, setCity] = useState([]);
@@ -129,7 +130,11 @@ function Home() {
   };
   return (
     <>
-      <Title style={{ textAlign: "center" }}>TRANG CHỦ</Title>
+      <Title style={{ textAlign: "center" }}>
+        <LinearGradient gradient={["to left", "#17acff ,#ff68f0"]}>
+          RECUIRMENT APP
+        </LinearGradient>
+      </Title>
       <Context.Provider value={contextValue}>
         {contextHolder}
         <Form onFinish={handleFinish}>
@@ -237,9 +242,6 @@ function Home() {
                       />
                     </div>
                   </div>
-                </div>
-                <div className="boxCompany__button">
-                  <Button icon={<AiOutlinePlus />}> Theo dõi </Button>
                 </div>
               </div>
             </Col>

@@ -1,10 +1,10 @@
-import { Button, Col, Form, Input, Row, Typography, notification } from "antd";
+import { notification } from "antd";
 import React, { useState, useEffect } from "react";
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Content } from "antd/es/layout/layout";
 import { Get } from "../../utils/requestFirebase";
 import { setCookie } from "../../SetCookie";
+import { Typewriter } from "react-simple-typewriter";
 const LoginUser = () => {
   const contextValue = {
     name: "Default",
@@ -31,9 +31,13 @@ const LoginUser = () => {
     };
     fetchUsers();
   }, []);
-  console.log(data);
+
   const onFinish = (e) => {
-    let { email, password } = e;
+    e.preventDefault();
+
+    let email = e.target[0].value;
+    let password = e.target[1].value;
+
     const user = data.filter(
       (user) => user.email === email && user.password === password
     );
@@ -43,7 +47,6 @@ const LoginUser = () => {
 
     if (user.length > 0) {
       let { password: excludedPassword, ...infoWithoutPassword } = currentUser;
-      // Use infoWithoutPassword which doesn't include the password
       let info = { ...infoWithoutPassword };
       setCookie("token", currentUser.token, 1000, 1);
       setCookie("role", currentUser.role, 1000, 1);
@@ -54,7 +57,9 @@ const LoginUser = () => {
         icon: "success",
       };
       openNotification(str);
-      navigate("/");
+      setTimeout(() => {
+        navigate("/");
+      }, 1400);
     } else {
       let str = {
         message: "Đăng nhập thất bại",
@@ -69,69 +74,85 @@ const LoginUser = () => {
       <Context.Provider value={contextValue}>
         {contextHolder}
         <Content>
-          <Typography.Title style={{ textAlign: "center" }}>
-            Đăng Nhập
-          </Typography.Title>
-          <Row
-            style={{ marginTop: "50px" }}
-            justify={"center"}
-            align={"center"}
-          >
-            <Col xxl={12} xl={8}>
-              <Form
-                name="normal_login"
-                className="login-form"
-                initialValues={{
-                  remember: true,
-                }}
-                onFinish={onFinish}
-              >
-                <Form.Item
-                  name="email"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Vui lòng nhập Email!",
-                    },
-                  ]}
-                >
-                  <Input
-                    type="email"
-                    prefix={<UserOutlined className="site-form-item-icon" />}
-                    placeholder="Email"
+          <div className="flex w-full h-screen">
+            <div className="w-full flex items-center justify-center lg:w-1/2">
+              <div className=" w-11/12 max-w-[700px] px-10 py-20 rounded-3xl bg-white border-2 border-gray-100">
+                <h1 className="text-5xl font-semibold">
+                  <Typewriter
+                    cursor
+                    words={["Đăng nhập", "Chào mừng trở lại!"]}
                   />
-                </Form.Item>
-                <Form.Item
-                  name="password"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Vui lòng nhập mật khẩu!",
-                    },
-                  ]}
-                >
-                  <Input.Password
-                    prefix={<LockOutlined className="site-form-item-icon" />}
-                    type="password"
-                    placeholder="Password"
-                  />
-                </Form.Item>
-                <Form.Item>
-                  <Link to={"forgot"}>Quên mật khẩu</Link>
-                </Form.Item>
-                <Form.Item>
-                  <Button
-                    type="primary"
-                    htmlType="submit"
-                    className="login-form-button"
-                  >
-                    Log in
-                  </Button>
-                </Form.Item>
-                Hoặc <Link to={"/registeruser"}>Đăng ký ngay!</Link>
-              </Form>
-            </Col>
-          </Row>
+                </h1>
+                <p className="font-medium text-lg text-gray-500 mt-4">
+                  Hệ thống web tìm kiếm việc làm
+                </p>
+                <form onSubmit={onFinish}>
+                  <div className="mt-8">
+                    <div className="flex flex-col">
+                      <label className="text-lg font-medium">Email</label>
+                      <input
+                        name="email"
+                        type="email"
+                        required
+                        className="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent"
+                        placeholder="Enter your email"
+                      />
+                    </div>
+                    <div className="flex flex-col mt-4">
+                      <label className="text-lg font-medium">Password</label>
+                      <input
+                        className="w-full border-2  border-gray-100 rounded-xl p-4 mt-1 bg-transparent"
+                        placeholder="Enter your password"
+                        name="password"
+                        required
+                        type={"password"}
+                      />
+                    </div>
+                    <div className="mt-8 flex justify-between items-center">
+                      <div>
+                        <input type="checkbox" id="remember" />
+                        <label
+                          className="ml-2 font-medium text-base"
+                          for="remember"
+                        >
+                          Remember for 30 days
+                        </label>
+                      </div>
+                      <button
+                        type="button"
+                        className="font-medium text-base text-violet-500"
+                      >
+                        Quên mật khẩu
+                      </button>
+                    </div>
+                    <div className="mt-8 flex flex-col gap-y-4">
+                      <button
+                        type="submit"
+                        className="active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01]  ease-in-out transform py-4 bg-violet-500 rounded-xl text-white font-bold text-lg"
+                      >
+                        Sign in
+                      </button>
+                    </div>
+                    <div className="mt-8 flex justify-center items-center">
+                      <p className="font-medium text-base">
+                        Chưa có tài khoản ?
+                      </p>
+                      <button
+                        onClick={() => navigate("/registeruser")}
+                        className="ml-2 font-medium text-base text-violet-500"
+                      >
+                        Đăng ký ngay
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div className="hidden relative w-1/2 h-full lg:flex items-center justify-center bg-gray-200">
+              <div className="w-60 h-60 rounded-full bg-gradient-to-tr from-violet-500 to-pink-500 animate-spin" />
+              <div className="w-full h-1/2 absolute bottom-0 bg-white/10 backdrop-blur-lg" />
+            </div>
+          </div>
         </Content>
       </Context.Provider>
     </>
